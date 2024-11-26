@@ -6,8 +6,10 @@ import Goal from "../Goal/Goal";
 import Recommend from "../Recommended/Recommended";
 import Faqs from "../Faq/Faq";
 import Footer from "../Layout/Footer";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate=useNavigate();
   return (
     <div className="relative w-full h-full flex flex-col gap-4">
       <div className=" fixed w-full h-max z-10">
@@ -25,7 +27,7 @@ const Home = () => {
           <button className="bg-blue-400 hover:bg-blue-500 transition-all ease-out duration-300 md:px-4 sm:px-2 px-2 py-1 rounded-lg md:text-2xl sm:text-xl text-md font-semibold text-gray-50">
             New Read
           </button>
-          <button className="bg-green-400 hover:bg-green-500 transition-all ease-out duration-300 md:px-4 sm:px-2 px-2 py-1 rounded-lg md:text-2xl sm:text-xl text-md font-semibold text-gray-50">
+          <button onClick={()=>navigate('/bookSearch')} className="bg-green-400 hover:bg-green-500 transition-all ease-out duration-300 md:px-4 sm:px-2 px-2 py-1 rounded-lg md:text-2xl sm:text-xl text-md font-semibold text-gray-50">
             Share Book
           </button>
           </div>
