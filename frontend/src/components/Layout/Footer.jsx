@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -11,23 +12,23 @@ const Footer = () => {
             in laborum voluptatibus eum id quas vitae numquam quidem ut
             doloribus!
           </p>
-          <button className="md:p-2 p-1 md:px-6 px-4 bg-blue-700 rounded-lg font-sans font-semibold md:text-xl sm:text-lg text-md text-white">Register</button>
+          <button className="md:p-2 p-1 md:px-6 px-4 bg-blue-700 rounded-lg font-sans font-semibold md:text-xl sm:text-lg text-md text-white"> <Link to="/signup">Register</Link> </button>
         </div>
         <div className="md:w-[20%] w-full h-max flex flex-row items-center justify-between md:mx-4 mx-8">
             <div className="flex flex-col gap-4">
                 <h4 className="font-sans font-semibold text-xl text-black">Links</h4>
                 <ul className="flex flex-col font-sans font-normal text-md text-black">
-                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold">Home</li>
-                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold">Get Book</li>
-                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold">Share Book</li>
+                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold"><a href="#home">Home</a> </li>
+                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold"><Link to="/bookSearch">Get Book</Link></li>
+                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold"><Link to="/profile">Share Book</Link></li>
                 </ul>
             </div>
             <div className="w-max flex flex-col p-4 gap-4">
                 <h4 className="font-sans font-semibold text-xl text-black">Info</h4>
                 <ul className="w-max h-max flex flex-col font-sans font-normal text-md text-black">
-                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold">Faqs</li>
-                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold">Recommend</li>
-                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold">Reviews</li>
+                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold"><a href="#faqs">Faqs</a> </li>
+                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold"><a href="#recommend">Recommend</a> </li>
+                    <li className="cursor-pointer transition-all ease-linear duration-150 hover:text-gray-800 hover:font-bold"><a href="#review">Reviews</a> </li>
                 </ul>
             </div>
         </div>

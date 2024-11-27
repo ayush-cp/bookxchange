@@ -27,8 +27,8 @@ const Home = () => {
           <button className="bg-blue-400 hover:bg-blue-500 transition-all ease-out duration-300 md:px-4 sm:px-2 px-2 py-1 rounded-lg md:text-2xl sm:text-xl text-md font-semibold text-gray-50">
            <Link to="/bookSearch">New Read</Link> 
           </button>
-          <button onClick={()=>navigate('/bookSearch')} className="bg-green-400 hover:bg-green-500 transition-all ease-out duration-300 md:px-4 sm:px-2 px-2 py-1 rounded-lg md:text-2xl sm:text-xl text-md font-semibold text-gray-50">
-            Share Book
+          <button className="bg-green-400 hover:bg-green-500 transition-all ease-out duration-300 md:px-4 sm:px-2 px-2 py-1 rounded-lg md:text-2xl sm:text-xl text-md font-semibold text-gray-50">
+          <Link to="/profile">Share Book</Link> 
           </button>
           </div>
          

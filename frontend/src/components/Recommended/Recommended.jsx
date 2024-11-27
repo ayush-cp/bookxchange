@@ -5,7 +5,7 @@ import book from "/public/images/book.png";
 
 const Recommend = () => {
   return (
-    <div className="w-full md:min-h-[50vh] md:h-max h-max bg-gray-50 flex justify-center  py-8">
+    <div id="recommend" className="w-full md:min-h-[50vh] md:h-max h-max bg-gray-50 flex justify-center  py-8">
       <div className="md:w-11/12 w-full h-full p-4 flex flex-col items-center gap-4">
         <h2 className="font-sans font-bold md:text-3xl sm:texl-2xl text-xl text-black">
           How We Recommend
