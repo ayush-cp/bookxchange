@@ -6,6 +6,8 @@ import openEye from "/public/images/openEye.png";
 import { Country, State } from "country-state-city";
 import Selector from "../BookSearch/Selector";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
   const countryData = Country.getAllCountries();
@@ -29,20 +31,26 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
+      if(!name || !email || !password || !country || !state) {
+        toast.error('Please fill all the fields');
+        return;
+      }
       const response = await axios.post("http://localhost:5000/api/users/signup", {
         name,
         email,
         password,
       });
-      alert("Signup successful!");
-      navigate("/login");
+      toast.success("Signup successful!");
+      navigate("/bookSearch");
     } catch (error) {
-      alert(error.response?.data?.error || "Signup failed");
+      toast.error("Signup failed");
+      console.log(error.response?.data?.error || "Signup failed");
     }
   };
 
   return (
     <div className="w-full h-screen bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
+      <ToastContainer/>
       <div className="relative md:w-[70%] w-full md:h-[85%] h-max bg-emerald-300  p-4 rounded-2xl md:pl-8">
         <div className="absolute right-0 top-[10%] md:w-1/2 md:min-w-[300px] z-[0]">
           <img
@@ -68,6 +76,7 @@ const Signup = () => {
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter your name"
                 className="p-2 px-4 font-sans font-normal text-md text-gray-500 rounded-lg outline-none bg-white"
+                required
               />
             </div>
             <div className="w-full h-max flex flex-col gap-2">
@@ -84,6 +93,7 @@ const Signup = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
                 className="p-2 px-4 font-sans font-normal text-md text-gray-500 rounded-lg outline-none bg-white"
+                required
               />
             </div>
 
@@ -124,6 +134,7 @@ const Signup = () => {
                 data={countryData}
                 selected={country}
                 setSelected={setCountry}
+                required
               />
             </div>
 
@@ -139,6 +150,7 @@ const Signup = () => {
                   data={stateData}
                   selected={state}
                   setSelected={setState}
+                  required
                 />
               </div>
             )}
