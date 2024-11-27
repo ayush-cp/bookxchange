@@ -62,14 +62,16 @@ const BookSearch = () => {
   };
 
   return (
-    <><Navbar />
-    <section className="min-h-screen px-3 grid place-items-center bg-[url('Book-lovely-hd-wallpaper.jpg')] bg-cover bg-center ">
+    <>
+    <div className="sticky top-0 z-10"><Navbar />
+    </div>
+    <section className="min-h-screen grid place-items-center bg-[url('Book-lovely-hd-wallpaper.jpg')] bg-cover bg-center ">
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg md:p-4 p-2 rounded-lg w-[90%] md:w-[70%] h-[80%] bg-gradient-to-br from-teal-600 to-emerald-800 opacity-80"
+        className="bg-white shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] h-[80%] bg-gradient-to-br from-teal-600 to-emerald-800 opacity-80"
       >
         <h2
-          className="md:text-3xl text-2xl text-[#fcd34d] font-bold text-center border border-white p-2"
+          className="md:text-4xl text-3xl mt-5 mb-2 text-[#fcd34d] font-bold text-center"
           style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}
         >
           Select Your Location and ISBN number of the Book
