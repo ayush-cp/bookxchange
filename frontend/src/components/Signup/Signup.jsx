@@ -28,11 +28,18 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    console.log("Signup data:", name, email, password, country, state);
+    if (!country || (stateData.length > 0 && !state)) {
+      alert("Please select a country and state.");
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:5000/api/users/signup", {
         name,
         email,
         password,
+        country: country.name,
+        state: state?.name || null,
       });
       alert("Signup successful!");
       navigate("/login");
@@ -40,6 +47,7 @@ const Signup = () => {
       alert(error.response?.data?.error || "Signup failed");
     }
   };
+  
 
   return (
     <div className="w-full h-screen bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
