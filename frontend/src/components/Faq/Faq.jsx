@@ -3,7 +3,7 @@ import arrow from "/public/images/arrow.png"
 
 const Faqs = () => {
 
-    const [activeId, setActiveId] = useState(null)
+    const [activeId, setActiveId] = useState(1)
 
     const faqs = [
         {
