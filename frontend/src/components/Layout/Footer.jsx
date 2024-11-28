@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const backRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => { //animating gradient
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+      },
+      { threshold: 1 }
+    );
+
+    if (backRef.current) {
+      observer.observe(backRef.current);
+    }
+
+    return () => {
+      if (backRef.current) {
+        observer.unobserve(backRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className="w-full md:h-[40vh] h-max bg-gradient-to-b from-gray-50 from-50% to-blue-400 flex justify-center items-center">
-      <div className=" w-[90%] h-[90%] flex md:flex-row flex-col justify-between items-center">
+    <div
+      
+      className="relative w-full md:h-[40vh] h-max transition-all ease-in duration-200 flex justify-center items-center"
+    >
+      <div ref={backRef} className={`z-0 absolute w-full ${visible?'h-full blur-0':'h-0 blur-lg'} bottom-0 left-0 blur-lg transition-all ease-in-out duration-500 bg-gradient-to-b from-gray-50 from-50% to-blue-400`}></div>
+      <div className="relative z-10 w-[90%] h-[90%] flex md:flex-row flex-col justify-between items-center">
         <div className="md:w-[30%] w-full h-max flex flex-col items-center gap-2">
           <h3 className="font-sans font-semibold md:text-xl sm:text-lg text-lg text-black">
             Book Exchange
