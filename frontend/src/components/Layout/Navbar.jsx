@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ham from "/public/images/ham.png";
 import bookLogo from "/public/images/logo.png";
 import { Link } from "react-router-dom";
@@ -7,6 +7,17 @@ import user from "/public/images/user.png";
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
   const [userLogged, setUserLogged] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      setUserLogged(true);
+    } else {
+      setUserLogged(false);
+    }
+  }, []);
+
+  
   return (
     <div className="w-full h-max">
       <div className="relative w-full h-full p-4 bg-gray-300 bg-opacity-50 backdrop-blur-md flex flex-row justify-between px-8">
