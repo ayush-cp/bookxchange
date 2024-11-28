@@ -63,8 +63,8 @@ const Recommend = () => {
           <div
             data-index={1}
             ref={(e) => (imageRef.current[1] = e)}
-            className={` transition-all ease-in duration-500 w-[100%] h-[25vh] border border-gray-400 bg-gradient-to-br from-blue-300 from-0% to-gray-50 to-30% rounded-lg p-2 flex flex-col justify-center items-center gap-2 ${
-              visibleItem[1] ? "opacity-100 blur-0" : "opacity-0 blur-lg"
+            className={`relative transition-all ease-in duration-500 w-[100%] h-[25vh] border border-gray-400 bg-gradient-to-br from-blue-300 from-0% to-gray-50 to-30% rounded-lg p-2 flex flex-col justify-center items-center gap-2 ${
+              visibleItem[1] ? "opacity-100 blur-0 left-0" : "opacity-0 blur-lg left-[-50%]"
             }`}
           >
             <div className="flex flex-row items-center gap-2">
@@ -88,8 +88,8 @@ const Recommend = () => {
           <div
             data-index={2}
             ref={(e) => (imageRef.current[2] = e)}
-            className={`  transition-all ease-in duration-500 w-[100%] h-[25vh] border border-gray-400 bg-gradient-to-br from-gray-50 from-70% to-emerald-300 to-100% rounded-lg p-2 flex flex-col justify-center items-center gap-2 ${
-              visibleItem[2] ? "opacity-100 blur-0" : "opacity-0 blur-lg"
+            className={`relative  transition-all ease-in duration-500 w-[100%] h-[25vh] border border-gray-400 bg-gradient-to-br from-gray-50 from-70% to-emerald-300 to-100% rounded-lg p-2 flex flex-col justify-center items-center gap-2 ${
+              visibleItem[2] ? "opacity-100 blur-0 left-0" : "opacity-0 blur-lg left-1/2"
             }`}
           >
             <div className="flex flex-row items-center gap-2">
@@ -117,8 +117,8 @@ const Recommend = () => {
             }}
             data-index={3}
             ref={(e) => (imageRef.current[3] = e)}
-            className={`  transition-all ease-in duration-500 w-[100%] h-[25vh] md:col-span-2 border border-gray-400 rounded-lg p-2 flex flex-col justify-center items-center gap-2 ${
-              visibleItem[3] ? "opacity-100 blur-0" : "opacity-0 blur-lg"
+            className={`relative  transition-all ease-in duration-500 w-[100%] h-[25vh] md:col-span-2 border border-gray-400 rounded-lg p-2 flex flex-col justify-center items-center gap-2 ${
+              visibleItem[3] ? "opacity-100 blur-0 top-0" : "opacity-0 blur-lg top-[40%]"
             }`}
           >
             <div className="flex flex-row items-center gap-2">
