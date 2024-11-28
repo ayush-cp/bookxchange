@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
       if (err) {
         return res.status(401).json({ message: 'Unauthorized access.' });
       } else {
+        console.log(decodedToken);
         req.user = decodedToken;
         next();
       }
