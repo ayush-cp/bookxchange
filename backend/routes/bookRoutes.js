@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/add", addBook);
 router.get("/", getBooks);
-
+router.delete("/:id", deleteBook);
 
 
 
