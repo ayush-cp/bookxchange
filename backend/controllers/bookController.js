@@ -57,4 +57,18 @@ const deleteBook = async (req, res) => {
   }
 };
 
-module.exports = { addBook, getBooks, deleteBook,getuserbooks };
+
+const searchbook = async (req, res) => {
+  const { country,state,city,isbn } = req.body;
+  try {
+    const books = await Book.find({
+      isbn: req.body.isbn,
+    });
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+module.exports = { addBook, getBooks, deleteBook,getuserbooks ,searchbook};

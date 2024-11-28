@@ -15,14 +15,17 @@ const ProfilePage = () => {
         window.location.href = '/login';
     }
 
-    console.log(user);
+    
+  
+    const [bio, setBio] = useState(user.bio);
+    const [username, setUsername] = useState(user.name);
 
   
   // Profile State
   const [profile, setProfile] = useState({
-    name: 'Bidit Raj',
-    email: 'biditraj@gmail.com',
-    bio: 'Book lover and aspiring writer',
+    name: user.name,
+    email: user.email,
+    bio: user.bio,
     profileImage: null
   });
 
@@ -126,7 +129,7 @@ const ProfilePage = () => {
     }));
   };
 
-  console.log(newBook);
+  
 
   const addBook = async () => {
     try {
@@ -187,7 +190,28 @@ const ProfilePage = () => {
     })
     .catch((err) => console.error("Error deleting book:", err.response?.data || err.message));
   };
-
+  
+  const updatedetails = async () => {
+    try {
+      const response = await axios.put( 'http://localhost:5000/api/users/updatedetails',
+        editedProfile,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Profile updated successfully:", response.data.user.bio);
+      setProfile(editedProfile);
+      setIsEditingProfile(false);
+      setBio(response.data.user.bio);
+      setUsername(response.data.user.name);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      window.location.reload();
+    } catch (err) {
+      console.error("Error updating profile:", err.response?.data || err.message);
+    }
+  };
   // Logout Handler (placeholder)
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -245,8 +269,8 @@ const ProfilePage = () => {
           </div>
           
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">{profile.name}</h2>
-            <p className="text-white/80 mb-6">{profile.email}</p>
+            <h2 className="text-2xl font-bold mb-2">{user.name}</h2>
+            <p className="text-white/80 mb-6">{user.email}</p>
             
             <button 
               onClick={handleLogout}
@@ -283,7 +307,7 @@ const ProfilePage = () => {
                       Cancel
                     </button>
                     <button 
-                      onClick={saveProfile} 
+                      onClick={updatedetails} 
                       className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 flex items-center"
                     >
                       <Save className="mr-1" size={20} /> Save
@@ -322,9 +346,9 @@ const ProfilePage = () => {
               </div>
             ) : (
               <div className="bg-gray-50 p-6 rounded-lg">
-                <p className="text-lg font-semibold text-gray-800 mb-2">{profile.name}</p>
-                <p className="text-gray-600 mb-3">{profile.email}</p>
-                <p className="text-gray-500">{profile.bio}</p>
+                <p className="text-lg font-semibold text-gray-800 mb-2">{username}</p>
+                <p className="text-gray-600 mb-3">{user.email}</p>
+                <p className="text-gray-500">{bio}</p>
               </div>
             )}
           </div>

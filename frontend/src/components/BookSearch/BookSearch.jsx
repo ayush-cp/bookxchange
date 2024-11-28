@@ -6,6 +6,13 @@ import Footer from "../Layout/Footer";
 import axios from "axios";
 
 const BookSearch = () => {
+   
+   if(!localStorage.getItem("token")){
+    window.location.href = "/login";
+  }
+
+
+   
   const countryData = Country.getAllCountries();
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
@@ -14,7 +21,9 @@ const BookSearch = () => {
   const [country, setCountry] = useState(null);
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
-  const [response, setResponse] = useState(null); // State to store backend response
+  const [response, setResponse] = useState(null); 
+
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     if (country) {
@@ -49,8 +58,13 @@ const BookSearch = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/books/",
-        payload
+        "http://localhost:5000/api/books/search",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setResponse(response.data);
       alert("Data submitted successfully!");
@@ -149,7 +163,24 @@ const BookSearch = () => {
         </div>
 
         {/* displaying content from the backend */}
-        {response && JSON.stringify(response)}
+        {response && 
+          <div className="text-white text-center">
+            <h2 className="text-2xl font-bold mt-5">Books</h2>
+            <div className="flex flex-col gap-4">
+              {response.map((book, index) => (
+                <div key={index} className="bg-gray-200 p-2 rounded-lg">
+                  <p>Book Title: {book.title}</p>
+                  <p>Author: {book.author}</p>
+                  <p>Genre: {book.genre}</p>
+                  <p>ISBN: {book.isbn}</p>
+                  <p>Country: {book.country}</p>
+                  <p>State: {book.state}</p>
+                  <p>Read Status: {book.readStatus}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        }
       </form>
     </section>
     <Footer />

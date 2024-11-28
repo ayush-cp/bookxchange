@@ -48,6 +48,9 @@ const Signup = () => {
         state: state?.name || null,
       });
       toast.success("Signup successful!");
+      const { token, user } = response.data;
+      localStorage .setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/bookSearch");
     } catch (error) {
       toast.error("Signup failed");
