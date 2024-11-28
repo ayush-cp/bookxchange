@@ -17,7 +17,7 @@ const ProfilePage = () => {
   const [editedProfile, setEditedProfile] = useState({...profile});
 
   // Books State
-  const [books, setBooks] = useState([
+  const [books, setBooks] = useState([ 
     { 
       id: 1, 
       title: 'To Kill a Mockingbird', 
@@ -165,13 +165,14 @@ const ProfilePage = () => {
                   className="w-40 h-40 rounded-full object-cover border-4 border-white/30 hover:scale-105 transition-transform"
                 />
               ) : (
-                <div className="w-40 h-40 bg-white/20 rounded-full flex items-center justify-center">
+                <div className="w-40 h-40 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/40 transition-colors">
                   <User className="w-20 h-20 text-white" />
                 </div>
               )}
             </label>
           </div>
-          
+
+          {/* Move name and email below profile image */}
           <div className="text-center">
             <h2 className="text-2xl font-bold mb-2">{profile.name}</h2>
             <p className="text-white/80 mb-6">{profile.email}</p>
@@ -266,85 +267,74 @@ const ProfilePage = () => {
               </h2>
               <button 
                 onClick={() => setIsAddingBook(!isAddingBook)} 
-                className="text-emerald-600 hover:text-emerald-800 flex items-center"
+                className="text-teal-600 hover:text-teal-800 flex items-center"
               >
-                <Plus className="mr-1" size={20} /> 
-                {isAddingBook ? 'Cancel' : 'Add Book'}
+                <Plus className="mr-1" size={20} /> Add Book
               </button>
             </div>
 
             {isAddingBook && (
-              <div className="bg-emerald-50 border border-emerald-200 p-6 rounded-lg mb-6">
+              <div className="space-y-4 mb-6">
                 <input
                   type="text"
                   name="title"
                   value={newBook.title}
                   onChange={handleBookChange}
-                  className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-200"
-                  placeholder="Book Title"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-200"
+                  placeholder="Title"
                 />
-                <div className="grid md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="author"
-                    value={newBook.author}
-                    onChange={handleBookChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-200"
-                    placeholder="Author"
-                  />
-                  <input
-                    type="text"
-                    name="genre"
-                    value={newBook.genre}
-                    onChange={handleBookChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-200"
-                    placeholder="Genre"
-                  />
-                </div>
-                <div className="flex flex-col md:flex-row items-center mt-4 space-y-2 md:space-y-0 md:space-x-4">
-                  <select
-                    name="readStatus"
-                    value={newBook.readStatus}
-                    onChange={handleBookChange}
-                    className="w-full md:w-auto p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-emerald-200 mb-2 md:mb-0"
-                  >
-                    <option value="Not Read">Not Read</option>
-                    <option value="Reading">Reading</option>
-                    <option value="Read">Read</option>
-                  </select>
-                  <button 
-                    onClick={addBook} 
-                    className="w-full md:w-auto bg-emerald-600 text-white p-3 rounded-lg hover:bg-emerald-700 transition"
-                  >
-                    Save Book
-                  </button>
-                </div>
+                <input
+                  type="text"
+                  name="author"
+                  value={newBook.author}
+                  onChange={handleBookChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-200"
+                  placeholder="Author"
+                />
+                <input
+                  type="text"
+                  name="genre"
+                  value={newBook.genre}
+                  onChange={handleBookChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-200"
+                  placeholder="Genre"
+                />
+                <select
+                  name="readStatus"
+                  value={newBook.readStatus}
+                  onChange={handleBookChange}
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-200"
+                >
+                  <option value="Not Read">Not Read</option>
+                  <option value="Reading">Reading</option>
+                  <option value="Read">Read</option>
+                </select>
+                <button 
+                  onClick={addBook} 
+                  className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 flex items-center"
+                >
+                  Add Book
+                </button>
               </div>
             )}
 
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-4">
               {books.map((book) => (
                 <div 
                   key={book.id} 
-                  className="bg-white border border-gray-200 p-5 rounded-lg flex justify-between items-center hover:shadow-md transition"
+                  className="flex justify-between items-center bg-gray-50 p-4 rounded-lg hover:bg-gray-100 transition-colors"
                 >
-                  <div className="flex-grow mr-4">
-                    <p className="font-semibold text-gray-800 truncate">{book.title}</p>
-                    <p className="text-gray-600 text-sm mb-2 truncate">{book.author}</p>
-                    <div className="flex flex-wrap space-x-2">
-                      <span className="bg-teal-100 text-teal-800 px-2 py-1 rounded text-xs mb-1">
-                        {book.genre}
-                      </span>
-                      <span className="bg-emerald-100 text-emerald-800 px-2 py-1 rounded text-xs mb-1">
-                        {book.readStatus}
-                      </span>
-                    </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">{book.title}</h3>
+                    <p className="text-gray-600">{book.author}</p>
+                    <p className="text-gray-500">{book.genre}</p>
+                    <p className="text-teal-600">{book.readStatus}</p>
                   </div>
                   <button 
-                    onClick={() => deleteBook(book.id)}
-                    className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-full transition flex-shrink-0"
+                    onClick={() => deleteBook(book.id)} 
+                    className="text-red-600 hover:text-red-800"
                   >
-                    <Trash2 />
+                    <Trash2 size={20} />
                   </button>
                 </div>
               ))}
