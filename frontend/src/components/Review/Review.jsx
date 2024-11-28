@@ -56,15 +56,6 @@ const Review = () => {
     },
     {
       id: 2,
-<<<<<<< HEAD
-      name: "John Doe",
-      rating: 3,
-      review: "This is a great product.",
-      image: user,
-      bookImage: user,
-      bookName: "Book bookbook",
-      date: "01/02/2056",
-=======
       name: "Jane Smith",
       rating: 5,
       review:
@@ -73,13 +64,11 @@ const Review = () => {
       bookImage: user,
       bookName: "Harry Potter",
       date: "12/11/2056",
->>>>>>> main
     },
   ];
 
   return (
     <div className="w-full min-h-[50vh] bg-gray-50 h-max flex justify-center items-center py-4">
-<<<<<<< HEAD
       <div className="md:w-[80%] w-full h-full p-4 flex flex-col items-center gap-16">
         <div
           ref={(e)=>(imageRef.current[0] = e)}
@@ -88,10 +77,6 @@ const Review = () => {
             visibleItem[0] ? "blur-0" : "blur-lg"
           }`}
         >
-=======
-      <div className="md:w-[80%] w-full h-full p-4 flex flex-col items-center gap-5">
-        <div className="w-full h-max flex flex-col items-center gap-4">
->>>>>>> main
           <h2 className="font-sans font-bold md:text-3xl sm:text-2xl text-xl text-blue-900">
             Tried and Tested
           </h2>
@@ -102,7 +87,6 @@ const Review = () => {
         </div>
 
         <div className="w-full h-max flex flex-col items-center gap-4 md:pl-8 pl-1">
-<<<<<<< HEAD
           {data.map((item, index) => (
             <div
               key={item.id}
@@ -113,13 +97,6 @@ const Review = () => {
               }`}
             >
               {/* single review*/}
-=======
-          {data.map((item) => (
-            <div
-              key={item.id}
-              className="p-2 md:w-[60%] w-full md:min-h-[25vh] md:h-max min-h-[20vh] h-max bg-gray-50 shadow-md rounded-lg border border-gray-400"
-            >
->>>>>>> main
               <div className="w-full h-max flex flex-row justify-between p-1">
                 <div className="w-[40%] p-1 flex flex-row items-start gap-3">
                   <div className="p-2 rounded-full border border-gray-500 bg-gray-800">
