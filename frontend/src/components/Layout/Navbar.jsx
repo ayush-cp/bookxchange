@@ -35,13 +35,13 @@ const Navbar = () => {
             } md:flex md:flex-row md:bg-transparent bg-gray-200 flex-col md:static absolute top-[100%] right-0 justify-between items-center md:gap-0 gap-3`}
           >
             <li className="text-gray-800 relative md:w-max w-full text-center  cursor-pointer font-sans text-lg font-semibold transition-all ease-linear duration-200 p-2 py-1 hover:bg-[#e8e7e7ca] rounded-[0.4rem] after:transition-all after:duration-300 hover:drop-shadow-[0px_1px_1px_#c8f2fd] after:ease-in after:content-[''] after:h-[2px] hover:after:w-full after:w-0 after:absolute after:bg-black after:bottom-0 after:left-0">
-              <a href="#home">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li className="text-gray-800 relative md:w-max w-full text-center  cursor-pointer font-sans text-lg font-semibold transition-all ease-linear duration-200 p-2 py-1 hover:bg-[#e8e7e7ca] rounded-[0.4rem] after:transition-all after:duration-300 hover:drop-shadow-[0px_1px_1px_#c8f2fd] after:ease-in after:content-[''] after:h-[2px] hover:after:w-full after:w-0 after:absolute after:bg-black after:bottom-0 after:left-0">
-              <a href="#review">Review</a>
+              <Link to="/booksearch">New Read</Link>
             </li>
             <li className="text-gray-800 relative md:w-max w-full text-center  cursor-pointer font-sans text-lg font-semibold transition-all ease-linear duration-200 p-2 py-1 hover:bg-[#e8e7e7ca] rounded-[0.4rem] after:transition-all after:duration-300 hover:drop-shadow-[0px_1px_1px_#c8f2fd] after:ease-in after:content-[''] after:h-[2px] hover:after:w-full after:w-0 after:absolute after:bg-black after:bottom-0 after:left-0">
-              <a href="#faqs">Faqs</a>
+              <Link to="/profile">Share Book</Link>
             </li>
           </ul>
           <div>
