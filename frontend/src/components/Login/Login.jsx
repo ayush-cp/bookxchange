@@ -17,17 +17,18 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      if (!email || !password) {
-        toast.error("Please fill all the fields");
-        return;
-      }
-      const response = await axios.post(
-        "http://localhost:5000/api/users/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/api/users/login", {
+        email,
+        password,
+      });
+  
+      // Extract token and user details
+      const { token, user } = response.data;
+  
+      // Store token in local storage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+  
       console.log("Login Success:", response.data);
       navigate("/bookSearch");
     } catch (err) {

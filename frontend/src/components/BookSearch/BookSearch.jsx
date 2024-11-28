@@ -63,20 +63,24 @@ const BookSearch = () => {
 
   return (
     <>
-    <div className="sticky top-0 z-10"><Navbar />
+    <div className="fixed w-full z-20"><Navbar />
     </div>
-    <section className="min-h-screen grid place-items-center bg-[url('Book-lovely-hd-wallpaper.jpg')] bg-cover bg-center ">
+    <section className=" min-h-screen grid place-items-center bg-gradient-to-br from-slate-400 to-gray-600 pt-8">
+         <div className="absolute w-full h-full bg-[url('backSearch.jpg')] top-0 left-0 opacity-60 rounded-xl blur-sm bg-cover bg-center z-0">
+
+</div>
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] h-[80%] bg-gradient-to-br from-teal-600 to-emerald-800 opacity-80"
+        className="relative shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] h-[80%] bg-gray-50 bg-opacity-30  backdrop-blur-lg z-10"
       >
+        
         <h2
-          className="md:text-4xl text-3xl mt-5 mb-2 text-[#fcd34d] font-bold text-center"
+          className="relative z-10 md:text-4xl text-3xl mt-5 mb-2 text-[#ffffff] font-bold text-center"
           style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}
         >
           Select Your Location and ISBN number of the Book
         </h2>
-        <div className="flex flex-col gap-4 justify-center items-center">
+        <div className="relative flex flex-col gap-4 justify-center items-center z-10">
           <div className="flex md:flex-row flex-col justify-center align-center gap-3">
             <div>
               <label
