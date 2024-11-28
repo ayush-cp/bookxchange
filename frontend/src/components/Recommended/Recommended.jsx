@@ -47,6 +47,7 @@ const Recommend = () => {
   return (
     <div
       id="recommend"
+<<<<<<< HEAD
       className="w-full md:min-h-[50vh] md:h-max h-max bg-gray-50 flex justify-center  py-8"
     >
       <div className="md:w-11/12 w-full h-full p-4 flex flex-col items-center gap-4">
@@ -57,6 +58,12 @@ const Recommend = () => {
             visibleItem[0] ? "opacity-100 blur-0" : "opacity-0 blur-lg"
           }`}
         >
+=======
+      className="w-full md:min-h-[50vh] md:h-max h-max bg-gray-50 flex justify-center py-8"
+    >
+      <div className="md:w-11/12 w-full h-full p-4 flex flex-col items-center gap-4">
+        <h2 className="font-sans font-bold md:text-3xl sm:text-2xl text-xl text-black">
+>>>>>>> main
           How We Recommend
         </h2>
         <div className="md:w-[50%] w-full h-full grid md:grid-cols-2 grid-cols-1 gap-1 place-items-center">
@@ -73,17 +80,20 @@ const Recommend = () => {
               </h3>
               <img
                 src={location}
+<<<<<<< HEAD
                 alt="location"
+=======
+                alt="Location"
+>>>>>>> main
                 className="md:w-12 sm:w-8 w-6 md:h-12 sm:h-8 h-6"
               />
             </div>
-
             <p className="text-center font-sans font-normal text-md text-black">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              nostrum voluptatum et dolor tenetur reiciendis, aliquam
-              accusantium,
+              We recommend books based on your location to ensure faster
+              delivery and a better user experience.
             </p>
           </div>
+<<<<<<< HEAD
 
           <div
             data-index={2}
@@ -92,24 +102,28 @@ const Recommend = () => {
               visibleItem[2] ? "opacity-100 blur-0 left-0" : "opacity-0 blur-lg left-1/2"
             }`}
           >
+=======
+          <div className="w-[100%] h-[25vh] border border-gray-400 bg-gradient-to-br from-gray-50 from-70% to-emerald-300 to-100% rounded-lg p-2 flex flex-col justify-center items-center gap-2">
+>>>>>>> main
             <div className="flex flex-row items-center gap-2">
               <h3 className="font-sans font-bold md:text-2xl sm:text-xl text-lg text-black">
                 Book Number
               </h3>
               <img
                 src={book}
+<<<<<<< HEAD
                 alt="book"
+=======
+                alt="Book Number"
+>>>>>>> main
                 className="md:w-12 sm:w-8 w-6 md:h-12 sm:h-8 h-6"
               />
             </div>
-
             <p className="text-center font-sans font-normal md:text-md sm:text-sm text-xs text-black">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              nostrum voluptatum et dolor tenetur reiciendis, aliquam
-              accusantium,
+              We recommend books that are popular and have been borrowed
+              frequently by users, ensuring the highest quality.
             </p>
           </div>
-
           <div
             style={{
               background:
@@ -127,15 +141,17 @@ const Recommend = () => {
               </h3>
               <img
                 src={rating}
+<<<<<<< HEAD
                 alt="rating"
+=======
+                alt="Rating"
+>>>>>>> main
                 className="md:w-12 sm:w-8 w-6 md:h-12 sm:h-8 h-6"
               />
             </div>
-
             <p className="text-center font-sans font-normal text-md text-black">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam
-              nostrum voluptatum et dolor tenetur reiciendis, aliquam
-              accusantium,
+              Our recommendation system also considers ratings and reviews from
+              other users to suggest the best books available.
             </p>
           </div>
         </div>

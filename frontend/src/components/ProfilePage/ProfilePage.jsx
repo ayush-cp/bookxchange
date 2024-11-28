@@ -132,17 +132,28 @@ const ProfilePage = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="w-full h-max ">
       <div className="w-full h-max fixed">
       <Navbar/>
       </div>
       <div
         className="min-h-screen bg-gradient-to-br from-teal-600 to-emerald-800 flex items-center justify-center p-4 md:p-8 pt-24"
+=======
+    <>
+      {" "}
+      <div className="sticky top-0 z-10">
+        <Navbar />
+      </div>
+      <div
+        className="min-h-screen bg-gradient-to-br from-teal-600 to-emerald-800 flex items-center justify-center p-4 md:p-8"
+>>>>>>> main
         style={{
           minHeight: "100dvh",
           overflowX: "hidden",
         }}
       >
+<<<<<<< HEAD
         <div
           className={`w-full max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden ${
             isMobile ? "flex flex-col" : "grid grid-cols-[340px_1fr]"
@@ -165,6 +176,64 @@ const ProfilePage = () => {
                     alt="Profile"
                     className="w-40 h-40 rounded-full object-cover border-4 border-white/30 hover:scale-105 transition-transform"
                   />
+=======
+        {/* Sidebar - Profile Overview */}
+        <div className="bg-gradient-to-br from-teal-600 to-emerald-800 text-white p-8 flex flex-col items-center justify-between">
+          <div className="relative mb-6">
+            <input 
+              type="file" 
+              id="profileImageUpload"
+              accept="image/*"
+              onChange={handleProfileImageUpload}
+              className="hidden"
+            />
+            <label 
+              htmlFor="profileImageUpload" 
+              className="cursor-pointer"
+            >
+              {profile.profileImage ? (
+                <img 
+                  src={profile.profileImage} 
+                  alt="Profile" 
+                  className="w-40 h-40 rounded-full object-cover border-4 border-white/30 hover:scale-105 transition-transform"
+                />
+              ) : (
+                <div className="w-40 h-40 bg-white/20 rounded-full flex items-center justify-center">
+                  <User className="w-20 h-20 text-white" />
+                </div>
+              )}
+            </label>
+          </div>
+          
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-2">{profile.name}</h2>
+            <p className="text-white/80 mb-6">{profile.email}</p>
+            
+            <button 
+              onClick={handleLogout}
+              className="w-full bg-white/20 hover:bg-white/30 text-white py-3 rounded-lg flex items-center justify-center transition"
+            >
+              <LogOut className="mr-2" /> Logout
+            </button>
+          </div>
+        </div>
+
+        <div className="p-4 md:p-8 overflow-y-auto">
+          <div className="mb-10">
+            <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-800 flex items-center mb-4 md:mb-0">
+                <User className="mr-3 text-teal-600" size={28} /> 
+                Profile Details
+              </h2>
+              <div className="flex space-x-2">
+                {!isEditingProfile ? (
+                  <button 
+                    onClick={toggleProfileEdit} 
+                    className="text-teal-600 hover:text-teal-800 flex items-center"
+                  >
+                    <Edit className="mr-1" size={20} /> Edit
+                  </button>
+>>>>>>> main
                 ) : (
                   <div className="w-40 h-40 bg-white/20 rounded-full flex items-center justify-center">
                     <User className="w-20 h-20 text-white" />
@@ -360,7 +429,8 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

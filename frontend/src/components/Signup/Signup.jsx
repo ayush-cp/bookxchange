@@ -30,6 +30,11 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    console.log("Signup data:", name, email, password, country, state);
+    if (!country || (stateData.length > 0 && !state)) {
+      alert("Please select a country and state.");
+      return;
+    }
     try {
       if(!name || !email || !password || !country || !state) {
         toast.error('Please fill all the fields');
@@ -39,6 +44,8 @@ const Signup = () => {
         name,
         email,
         password,
+        country: country.name,
+        state: state?.name || null,
       });
       toast.success("Signup successful!");
       navigate("/bookSearch");
@@ -47,6 +54,7 @@ const Signup = () => {
       console.log(error.response?.data?.error || "Signup failed");
     }
   };
+  
 
   return (
     <div className="w-full h-screen bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
