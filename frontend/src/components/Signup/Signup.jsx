@@ -28,11 +28,19 @@ const Signup = () => {
     }
   }, [country]);
 
+  const handleName = (e)=>{
+    if (/\d|[^a-zA-Z0-9]/.test(e.target.value)) {
+      toast.error('Name should not contain any number or special character.');
+      return;
+    }
+    setName(e.target.value)
+  }
+
   const handleSignup = async (e) => {
     e.preventDefault();
     console.log("Signup data:", name, email, password, country, state);
     if (!country || (stateData.length > 0 && !state)) {
-      alert("Please select a country and state.");
+      toast.error("Please select a country and state.");
       return;
     }
     try {
@@ -40,6 +48,10 @@ const Signup = () => {
         toast.error('Please fill all the fields');
         return;
       }
+     if (password.length<6 || !(/\d/).test(password) || !(/[^a-zA-Z0-9]/).test(password) || !(/[a-zA-Z]/).test(password)) {
+      toast.error('Password should contain alphabets, numbers and special characters.');
+        return;
+     }
       const response = await axios.post("http://localhost:5000/api/users/signup", {
         name,
         email,
@@ -84,7 +96,7 @@ const Signup = () => {
                 type="text"
                 id="name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleName}
                 placeholder="Enter your name"
                 className="p-2 px-4 font-sans font-normal text-md text-gray-500 rounded-lg outline-none bg-white"
                 required
@@ -132,6 +144,7 @@ const Signup = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 />
               </div>
+              <p className="text-xs text-red-600" >Password should be atleast 6 characters with Numbers and Special Characters.</p>
             </div>
 
             <div className="w-full h-max flex flex-col gap-2">
