@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <div className="w-full h-max">
       <div className="relative w-full h-full p-4 bg-gray-300 bg-opacity-50 backdrop-blur-md flex flex-row justify-between px-8">
-        <div className="w-36 h-12 cursor-pointer ">
+        <div className="sm:w-36 w-48 h-12 cursor-pointer ">
           <Link to="/">
             {" "}
             <img
@@ -31,7 +31,7 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        <div className=" md:w-[30%] w-full h-max flex md:flex-row md:px-0 px-6 justify-end items-center gap-8">
+        <div className=" md:w-[30%] md:min-w-[400px] w-full h-max flex md:flex-row md:px-0 px-6 justify-end items-center gap-8">
           <div
             onClick={() => setMenu(!menu)}
             className={` ${

@@ -25,6 +25,69 @@ const BookSearch = () => {
 
   const token = localStorage.getItem("token");
 
+  const tempData = [
+    {
+      id: 1,
+      country: "India",
+      state: "Maharashtra",
+      title: "book1",
+      isbn: "12345678087",
+      readStatus: "read",
+      author: "ayush panwar",
+      genre: "fantasy"
+    },
+    {
+      id: 1,
+      country: "India",
+      state: "Maharashtra",
+      title: "book1",
+      isbn: "12345678087",
+      readStatus: "read",
+      author: "ayush panwar",
+      genre: "fantasy"
+    },
+    {
+      id: 1,
+      country: "India",
+      state: "Maharashtra",
+      title: "book1",
+      isbn: "12345678087",
+      readStatus: "read",
+      author: "ayush panwar",
+      genre: "fantasy"
+    },
+    {
+      id: 1,
+      country: "India",
+      state: "Maharashtra",
+      title: "book1",
+      isbn: "12345678087",
+      readStatus: "read",
+      author: "ayush panwar",
+      genre: "fantasy"
+    },
+    {
+      id: 1,
+      country: "India",
+      state: "Maharashtra",
+      title: "book1",
+      isbn: "12345678087",
+      readStatus: "read",
+      author: "ayush panwar",
+      genre: "fantasy"
+    },
+    {
+      id: 1,
+      country: "India",
+      state: "Maharashtra",
+      title: "book1",
+      isbn: "12345678087",
+      readStatus: "read",
+      author: "ayush panwar",
+      genre: "fantasy"
+    }
+  ]
+
   useEffect(() => {
     if (country) {
       setStateData(State.getStatesOfCountry(country.isoCode));
@@ -79,17 +142,17 @@ const BookSearch = () => {
     <>
     <div className="fixed w-full z-20"><Navbar />
     </div>
-    <section className=" min-h-screen grid place-items-center bg-gradient-to-br from-slate-400 to-gray-600 pt-8">
-         <div className="absolute w-full h-full bg-[url('backSearch.jpg')] top-0 left-0 opacity-60 rounded-xl blur-sm bg-cover bg-center z-0">
+    <section className=" py-24 min-h-screen h-max flex flex-col justify-center items-center gap-8 bg-gradient-to-br from-slate-400 to-gray-600">
+         <div className="absolute w-full h-full bg-[url('backSearch.jpg')] top-0 left-0 opacity-60 rounded-xl blur-sm bg-fill bg-center z-0">
 
 </div>
       <form
         onSubmit={handleSubmit}
-        className="relative shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] h-[80%] bg-gray-50 bg-opacity-30  backdrop-blur-lg z-10"
+        className="relative shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] min-h-[80%] h-max py-4 bg-gray-50 bg-opacity-30  backdrop-blur-lg z-10"
       >
         
         <h2
-          className="relative z-10 md:text-4xl text-3xl mt-5 mb-2 text-[#ffffff] font-bold text-center"
+          className="relative z-10 md:text-4xl sm:text-3xl text-xl mt-5 mb-2 text-[#ffffff] font-bold text-center"
           style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}
         >
           Select Your Location and ISBN number of the Book
@@ -148,7 +211,7 @@ const BookSearch = () => {
               Enter ISBN Number:
             </label>
             <input
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg outline-none"
               type="text"
               onChange={handleIsbnChange}
               value={isbn}
@@ -156,32 +219,42 @@ const BookSearch = () => {
           </div>
           <button
             type="submit"
-            className="w-[50%] md:w-[15%] bg-black text-white py-2 px-4 rounded-xl hover:bg-teal-600"
+            className="sm:w-[30%] w-1/2 md:w-[15%] bg-black text-white py-2 px-4 rounded-xl hover:bg-teal-600"
           >
             Submit
           </button>
         </div>
 
         {/* displaying content from the backend */}
-        {response && 
-          <div className="text-white text-center">
-            <h2 className="text-2xl font-bold mt-5">Books</h2>
-            <div className="flex flex-col gap-4">
-              {response.map((book, index) => (
-                <div key={index} className="bg-gray-200 p-2 rounded-lg">
-                  <p>Book Title: {book.title}</p>
-                  <p>Author: {book.author}</p>
-                  <p>Genre: {book.genre}</p>
-                  <p>ISBN: {book.isbn}</p>
-                  <p>Country: {book.country}</p>
-                  <p>State: {book.state}</p>
-                  <p>Read Status: {book.readStatus}</p>
+        
+      </form>
+     
+      {tempData && 
+          <div className="relative z-10 sm:w-[70%] w-[90%] h-max bg-gray-50 bg-opacity-30 rounded-lg overflow-hidden  backdrop-blur-lg text-gray-800 text-center">
+            <h2 className="text-2xl font-bold mt-5 text-white" style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}>Books</h2>
+            <div className=" grid sm:grid-cols-2 grid-cols-1 gap-4  bg-gray-50 bg-opacity-30  backdrop-blur-lg p-4">
+              {tempData.map((book, index) => (
+                <div key={index} className="bg-gray-50 border border-gray-300 bg-opacity-95 p-4 flex flex-col gap-2 rounded-lg sm:w-[30vw] w-full h-max">
+                    <div className="w-full h-max flex flex-row justify-between items-center">
+                      <h2 className="sm:text-lg text-md font-bold">{book.title}</h2>
+                      <h3 className="sm:text-lg text-md font-bold">{book.isbn}</h3>
+                    </div>
+                    <div className="flex flex-col items-start gap-2 w-max h-max">
+                      <h4 className="sm:text-md text-sm font-normal">{book.author}</h4>
+                      <div className="w-max h-max flex flex-row gap-2 items-center">
+                        <div className="p-2 py-1 cursor-pointer bg-emerald-300 rounded-md">
+                          <h5 className="text-xs font-normal text-emerald-900">{book.genre}</h5>
+                        </div>
+                        <div className="p-2 py-1 cursor-pointer bg-emerald-300 rounded-md">
+                          <h5 className="text-xs font-normal text-emerald-900">{book.readStatus}</h5>
+                        </div>
+                      </div>
+                    </div>
                 </div>
               ))}
             </div>
           </div>
         }
-      </form>
     </section>
     <Footer />
     </>
