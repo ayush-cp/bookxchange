@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
     if(!user){
-        window.location.href = '/login';
+        window.location.href = '/bookexchangelogin';
     }
 
     

@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const auth=require('../middleware/auth');
+const nodemailer = require("nodemailer");
+const otp = Math.floor(1000 + Math.random() * 9000);
 
 const signup = async (req, res) => {
   const { name, email, password, country, state } = req.body;
@@ -9,8 +11,8 @@ const signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ name, email, password: hashedPassword, country,state });
     const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: "72h" });
-
-
+    
+    sendEmail(email, otp);
     res.status(201).json({ message: "User created successfully", user, token, id: user._id });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -75,7 +77,65 @@ const updatedetails = async (req, res) => {
 };
 
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  port: 465,
+  secure: true,
+  logger: true,
+  debug: true,
+  secureConnection: false,
+  auth: {
+   user: 'akshideveloper@gmail.com',
+   pass: 'hslbodzctvyvyvry'
+  },
+  tls: {
+    rejectUnauthorized: false,
+   },
+
+ });
+
+ const sendEmail = (email, token) => {
+  const mailOptions = {
+   from: 'akshideveloper@gmail.com',
+   to: email,
+   subject: 'Email verification',
+      html: `<h1>Email Verification</h1>
+      <h2>Hello User</h2>
+      <p>Thanks for registering into our website</p>
+      <p>Please enter this OTP to verify your email</p>
+      <h1>${token}</h1>
+      </div>`,
+ };
+
+ transporter.sendMail(mailOptions, function (error, info) {
+   if (error) {
+     console.log('Error in sending email  ' + error);
+     return true;
+   } else {
+    console.log('Email sent: ' + info.response);
+    return false;
+   }
+  });
+ };
+
+
+const verifyEmail = async (req, res) => {
+  const { email, otp } = req.body;
+  if (otp == otp) {
+    const user = await User
+      .findOneAndUpdate({ email }, {
+        verified: true
+      });
+    if (user) {
+      res.status(200).json({ message: "Email verified successfully" });
+    }
+  }
+  else {
+    res.status(400).json({ message: "Invalid OTP" });
+  }
+  
+};
 
 
 
-module.exports = { signup, login ,updatedetails};
+module.exports = { signup, login ,updatedetails,verifyEmail};

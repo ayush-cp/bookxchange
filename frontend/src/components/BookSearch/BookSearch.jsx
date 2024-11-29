@@ -8,7 +8,7 @@ import axios from "axios";
 const BookSearch = () => {
    
    if(!localStorage.getItem("token")){
-    window.location.href = "/login";
+    window.location.href = "/bookexchangelogin";
   }
 
 
