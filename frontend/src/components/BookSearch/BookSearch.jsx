@@ -67,6 +67,9 @@ const BookSearch = () => {
         }
       );
       setResponse(response.data);
+      // console.log("Response from backend:", response.data);
+      console.log("Books:", response.data.books);
+      console.log("Users:", response.data.users);
       alert("Data submitted successfully!");
     } catch (error) {
       console.error("Error while sending data to backend:", error);
@@ -164,23 +167,29 @@ const BookSearch = () => {
 
         {/* displaying content from the backend */}
         {response && 
-          <div className="text-white text-center">
-            <h2 className="text-2xl font-bold mt-5">Books</h2>
-            <div className="flex flex-col gap-4">
-              {response.map((book, index) => (
-                <div key={index} className="bg-gray-200 p-2 rounded-lg">
-                  <p>Book Title: {book.title}</p>
-                  <p>Author: {book.author}</p>
-                  <p>Genre: {book.genre}</p>
-                  <p>ISBN: {book.isbn}</p>
-                  <p>Country: {book.country}</p>
-                  <p>State: {book.state}</p>
-                  <p>Read Status: {book.readStatus}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        }
+  <div className="text-white text-center">
+    <h2 className="text-2xl font-bold mt-5">Books</h2>
+    <div className="flex flex-col gap-4">
+      {response.books.map((book, index) => (
+        <div key={index} className="bg-gray-200 p-2 rounded-lg">
+          <p>Book Title: {book.title}</p>
+          <p>Author: {book.author}</p>
+          <p>Genre: {book.genre}</p>
+          <p>ISBN: {book.isbn}</p>
+          <p>Country: {book.country}</p>
+          <p>State: {book.state}</p>
+          <p>Read Status: {book.readStatus}</p>
+          <h3 className="font-bold mt-3">User Details</h3>
+          <p>Name: {response.users.find(user => user._id === book.user)?.name || "N/A"}</p>
+          <p>Email: {response.users.find(user => user._id === book.user)?.email || "N/A"}</p>
+          <p>Country: {response.users.find(user => user._id === book.user)?.country || "N/A"}</p>
+          <p>State: {response.users.find(user => user._id === book.user)?.state || "N/A"}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+}
+
       </form>
     </section>
     <Footer />

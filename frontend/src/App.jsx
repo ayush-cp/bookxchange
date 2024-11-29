@@ -5,6 +5,7 @@ import Signup from "./components/Signup/Signup";
 import BookSearch from "./components/BookSearch/BookSearch";
 import Login from "./components/Login/Login";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import BookExchangeLogin from "./components/loginregister/LoginRegister";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
 
           {/* Define route for Profile Page */}
           <Route path="/profile" element={<ProfilePage />} />
+            
+            {/* Define route for BookExchangeLogin */}
+          <Route path="/bookexchangelogin" element={<BookExchangeLogin />} />
+
         </Routes>
       </BrowserRouter>
     </div>
