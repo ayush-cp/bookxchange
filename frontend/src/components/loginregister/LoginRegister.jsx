@@ -83,7 +83,6 @@ const CombinedAuthForm = () => {
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     if (
       !formData.name ||
       !formData.email ||
@@ -111,24 +110,30 @@ const CombinedAuthForm = () => {
         "http://localhost:5000/api/users/signup",
         formData
       );
+      console.log("Signup response:", response.data);
       toast.success("Signup successful!");
       const { token, user } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
+      console.log("User:", user);
+      console.log("Token:", token);
+      setLoading(false);
+      const obtainedotp = JSON.stringify(response.data.otp);
+      setGeneratedOTP(obtainedotp);
+      console.log(`Generated OTP: ${obtainedotp}`);
+      toast.success("OTP sent to your email!");
+  
+      setLoading(false);
+      setStage("verify-otp");
+      setIsResendDisabled(true);
+       
       navigate("/bookSearch");
     } catch (error) {
       toast.error("Signup failed");
       console.log(error.response?.data?.error || "Signup failed");
     }
 
-    // const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    // setGeneratedOTP(otp);
-    // console.log(`Generated OTP: ${otp}`);
-    // toast.success("OTP sent to your email!");
-
-    // setLoading(false);
-    // setStage("verify-otp");
-    // setIsResendDisabled(true);
+  
   };
 
   const handleLoginSubmit = async (e) => {
@@ -148,7 +153,7 @@ const CombinedAuthForm = () => {
       // Store token in local storage
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
-  
+
       console.log("Login Success:", response.data);
       navigate("/bookSearch");
    } catch (err) {
@@ -159,9 +164,10 @@ const CombinedAuthForm = () => {
 
   const handleOTPVerification = (e) => {
     e.preventDefault();
-    if (formData.otp === generatedOTP) {
+    console.log("OTP Verification:", formData.otp);
+    if (formData.otp == generatedOTP) {
       toast.success("Registration successful!");
-      setStage("login");
+      navigate("/bookSearch");
     } else {
       toast.error("Incorrect OTP. Please try again.");
     }
