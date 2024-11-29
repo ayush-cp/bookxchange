@@ -37,6 +37,10 @@ const CombinedAuthForm = () => {
   const [stateData, setStateData] = useState([]);
   const [country, setCountry] = useState(null);
 
+
+  const navigate = useNavigate();
+
+  setUser(JSON.parse(localStorage.getItem("user")));
   useEffect(() => {
     if (country) {
       setStateData(State.getStatesOfCountry(country.isoCode));
@@ -162,23 +166,44 @@ const CombinedAuthForm = () => {
    }
   };
 
-  const handleOTPVerification = (e) => {
+  const handleOTPVerification = async (e) => {
     e.preventDefault();
     console.log("OTP Verification:", formData.otp);
+
     if (formData.otp == generatedOTP) {
-      toast.success("Registration successful!");
-      navigate("/bookSearch");
+        try {
+            const email = localStorage.getItem("email"); // Retrieve email
+            if (!email) {
+                toast.error("Email is missing in localStorage.");
+                return;
+            }
+
+            const response = await axios.post(
+                "http://localhost:5000/api/users/verifyEmail",
+                { email } // Ensure email is wrapped in an object
+            );
+
+            console.log("Email Verified:", response.data);
+            toast.success("Registration successful!");
+        } catch (error) {
+            console.error("Error verifying email:", error.response?.data || error);
+            toast.error(error.response?.data?.message || "Error verifying email. Please try again.");
+        }
     } else {
-      toast.error("Incorrect OTP. Please try again.");
+        toast.error("Incorrect OTP. Please try again.");
     }
-  };
+};
+
 
   const resendOTP = () => {
-    const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOTP(newOTP);
-    console.log(`Resent OTP: ${newOTP}`);
-    toast.success("OTP resent to your email!");
     setIsResendDisabled(true);
+    setResendTimeout(30);
+    setTimeout(() => {
+      setIsResendDisabled(false);
+    }, 30000);
+    axios.post("http://localhost:5000/api/users/resendotp", { email: formData.email });
+    
+
   };
 
   return (

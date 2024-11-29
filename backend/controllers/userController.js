@@ -118,24 +118,48 @@ const transporter = nodemailer.createTransport({
   });
  };
 
-
-const verifyEmail = async (req, res) => {
-  const { email, otp } = req.body;
-  if (otp == otp) {
-    const user = await User
-      .findOneAndUpdate({ email }, {
-        verified: true
+  const resendotp = async (req, res) => {
+    const { email } = req.body;
+    try {
+      const user = await User .findOne({
+        email,
       });
-    if (user) {
-      res.status(200).json({ message: "Email verified successfully" });
+      if (!user) {
+        return res.status(400).json({ message: "User not found" });
+      }
+      sendEmail(email, otp);
+      res.status(200).json({ message: "OTP sent successfully", otp });
     }
+    catch (error) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+    
+  };
+
+
+
+ const verifyEmail = async (req, res) => {
+  try {
+    const { email } = req.body;
+    console.log("Email received for verification:", email); // Debugging log
+    const user = await User.findOneAndUpdate(
+      { email },
+      { verified: true },
+      { new: true } // Return the updated document
+    );
+    if (user) {
+      console.log("User after update:", user); // Log updated user
+      res.status(200).json({ message: "Email verified successfully" });
+    } else {
+      res.status(400).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error in verifyEmail:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-  else {
-    res.status(400).json({ message: "Invalid OTP" });
-  }
-  
 };
 
 
 
-module.exports = { signup, login ,updatedetails,verifyEmail};
+
+module.exports = { signup, login ,updatedetails,verifyEmail,resendotp};
