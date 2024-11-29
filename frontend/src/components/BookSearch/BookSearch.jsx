@@ -6,6 +6,13 @@ import Footer from "../Layout/Footer";
 import axios from "axios";
 
 const BookSearch = () => {
+   
+   if(!localStorage.getItem("token")){
+    window.location.href = "/login";
+  }
+
+
+   
   const countryData = Country.getAllCountries();
   const [stateData, setStateData] = useState([]);
   const [cityData, setCityData] = useState([]);
@@ -14,7 +21,11 @@ const BookSearch = () => {
   const [country, setCountry] = useState(null);
   const [state, setState] = useState(null);
   const [city, setCity] = useState(null);
-  const [response, setResponse] = useState(null); // State to store backend response
+  const [response, setResponse] = useState(null); 
+
+  const token = localStorage.getItem("token");
+
+  
 
   useEffect(() => {
     if (country) {
@@ -49,10 +60,18 @@ const BookSearch = () => {
 
     try {
       const response = await axios.post(
-        "http://backend-api-url.com/api/booksearch",
-        payload
+        "http://localhost:5000/api/books/search",
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       setResponse(response.data);
+      // console.log("Response from backend:", response.data);
+      console.log("Books:", response.data.books);
+      console.log("Users:", response.data.users);
       alert("Data submitted successfully!");
     } catch (error) {
       console.error("Error while sending data to backend:", error);
@@ -62,19 +81,25 @@ const BookSearch = () => {
   };
 
   return (
-    <><Navbar />
-    <section className="min-h-screen px-3 grid place-items-center bg-[url('Book-lovely-hd-wallpaper.jpg')] bg-cover bg-center ">
+    <>
+    <div className="fixed w-full z-20"><Navbar />
+    </div>
+    <section className=" py-24 min-h-screen h-max flex flex-col justify-center items-center gap-8 bg-gradient-to-br from-slate-400 to-gray-600">
+         <div className="absolute w-full h-full bg-[url('backSearch.jpg')] top-0 left-0 opacity-60 rounded-xl blur-sm bg-fill bg-center z-0">
+
+</div>
       <form
         onSubmit={handleSubmit}
-        className="bg-white shadow-lg md:p-4 p-2 rounded-lg w-[90%] md:w-[70%] h-[80%] bg-gradient-to-br from-teal-600 to-emerald-800 opacity-80"
+        className="relative shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] min-h-[80%] h-max py-4 bg-gray-50 bg-opacity-30  backdrop-blur-lg z-10"
       >
+        
         <h2
-          className="md:text-3xl text-2xl text-[#fcd34d] font-bold text-center border border-white p-2"
+          className="relative z-10 md:text-4xl sm:text-3xl text-xl mt-5 mb-2 text-[#ffffff] font-bold text-center"
           style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}
         >
           Select Your Location and ISBN number of the Book
         </h2>
-        <div className="flex flex-col gap-4 justify-center items-center">
+        <div className="relative flex flex-col gap-4 justify-center items-center z-10">
           <div className="flex md:flex-row flex-col justify-center align-center gap-3">
             <div>
               <label
@@ -128,7 +153,7 @@ const BookSearch = () => {
               Enter ISBN Number:
             </label>
             <input
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg outline-none"
               type="text"
               onChange={handleIsbnChange}
               value={isbn}
@@ -136,14 +161,37 @@ const BookSearch = () => {
           </div>
           <button
             type="submit"
-            className="w-[50%] md:w-[15%] bg-black text-white py-2 px-4 rounded-xl hover:bg-teal-600"
+            className="sm:w-[30%] w-1/2 md:w-[15%] bg-black transition-all ease-out duration-150 text-white py-2 px-4 rounded-xl hover:bg-teal-600"
           >
             Submit
           </button>
         </div>
 
         {/* displaying content from the backend */}
-        {response && JSON.stringify(response)}
+        {response && 
+  <div className="text-white text-center">
+    <h2 className="text-2xl font-bold mt-5">Books</h2>
+    <div className="flex flex-col gap-4">
+      {response.books.map((book, index) => (
+        <div key={index} className="bg-gray-200 p-2 rounded-lg">
+          <p>Book Title: {book.title}</p>
+          <p>Author: {book.author}</p>
+          <p>Genre: {book.genre}</p>
+          <p>ISBN: {book.isbn}</p>
+          <p>Country: {book.country}</p>
+          <p>State: {book.state}</p>
+          <p>Read Status: {book.readStatus}</p>
+          <h3 className="font-bold mt-3">User Details</h3>
+          <p>Name: {response.users.find(user => user._id === book.user)?.name || "N/A"}</p>
+          <p>Email: {response.users.find(user => user._id === book.user)?.email || "N/A"}</p>
+          <p>Country: {response.users.find(user => user._id === book.user)?.country || "N/A"}</p>
+          <p>State: {response.users.find(user => user._id === book.user)?.state || "N/A"}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+}
+
       </form>
     </section>
     <Footer />

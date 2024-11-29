@@ -1,48 +1,101 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import user from "/public/images/user.png";
 import emptyStar from "/public/images/emptyStar.png";
 import yellowStar from "/public/images/yellowStar.png";
+import { FaBook } from "react-icons/fa6";
 
 const Review = () => {
+  const imageRef = useRef([]);
+  const [visibleItem, setVisibleItem] = useState([]);
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.4,
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        const elementIndex = Number(entry.target.dataset.index)
+
+        if ( entry.isIntersecting) {
+         setVisibleItem((prev)=>{
+          const added = [...prev]
+          added[elementIndex] = true;
+          return added;
+         })
+         observer.unobserve(entry.target)
+        }
+      });
+    }, options);
+
+    imageRef.current.forEach((ref) => {
+      if (ref) {
+        observer.observe(ref);
+      }
+    });
+
+    return () => {
+      if (imageRef.current) {
+        imageRef.current.forEach((ref)=>{
+         ref && observer.unobserve(ref);
+        })
+      }
+    };
+  }, []);
   const data = [
     {
       id: 1,
       name: "John Doe",
       rating: 3,
-      review: "This is a great product.",
+      review:
+        "The service was good, but there is still room for improvement. The support team was responsive, but the delivery time could be faster. Overall, I am satisfied, but I hope to see improvements in the future.",
       image: user,
       bookImage: user,
-      bookName: "Book bookbook",
+      bookName: "The Merchant of Venice",
       date: "01/02/2056",
     },
     {
-        id: 2,
-        name: "John Doe",
-        rating: 3,
-        review: "This is a great product.",
-        image: user,
-        bookImage: user,
-        bookName: "Book bookbook",
-        date: "01/02/2056",
-      },
+      id: 2,
+      name: "Jane Smith",
+      rating: 5,
+      review:
+        "I am extremely happy with the service. From order placement to delivery, everything was seamless. The team was professional, and the customer support was outstanding. Highly recommend to anyone looking for a hassle-free experience.",
+      image: user,
+      bookImage: user,
+      bookName: "Harry Potter",
+      date: "12/11/2056",
+    },
   ];
+
   return (
     <div className="w-full min-h-[50vh] bg-gray-50 h-max flex justify-center items-center py-4">
       <div className="md:w-[80%] w-full h-full p-4 flex flex-col items-center gap-16">
-        <div className="w-full h-max flex flex-col items-center gap-4">
+        <div
+          ref={(e)=>(imageRef.current[0] = e)}
+          data-index= {0}
+          className={`w-full h-max flex flex-col items-center gap-4 transition-all ease-out duration-700 ${
+            visibleItem[0] ? "blur-0" : "blur-lg"
+          }`}
+        >
           <h2 className="font-sans font-bold md:text-3xl sm:text-2xl text-xl text-blue-900">
             Tried and Tested
           </h2>
-          <p className="font-sans font-normal md:text-lg sm:text-md text-sm text-gray-800 text-center text-balance">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur
-            ea est, debitis nam alias libero asperiores praesentium rem voluptas
-            modi, optio dolo
+          <p className="font-sans font-normal md:text-xl sm:text-md text-sm text-gray-800 text-center text-balance">
+            See what our users have to say about our products. Real reviews from
+            real customers.
           </p>
         </div>
 
         <div className="w-full h-max flex flex-col items-center gap-4 md:pl-8 pl-1">
-          {data.map((item) => (
-            <div key={item.id} className="md:w-[60%] w-full md:min-h-[25vh] md:h-max min-h-[20vh] h-max bg-gray-50 shadow-md rounded-lg border border-gray-400">
+          {data.map((item, index) => (
+            <div
+              key={item.id}
+              ref={(e)=>(imageRef.current[index+1] = e)}
+              data-index={index+1}
+              className={`md:w-[60%] transition-all ease-out duration-700 w-full md:min-h-[25vh] md:h-max min-h-[20vh] h-max bg-gray-50 shadow-md rounded-lg border border-gray-400 ${
+                visibleItem[index+1] ? "blur-0" : "blur-lg"
+              }`}
+            >
               {/* single review*/}
               <div className="w-full h-max flex flex-row justify-between p-1">
                 <div className="w-[40%] p-1 flex flex-row items-start gap-3">
@@ -58,9 +111,9 @@ const Review = () => {
                     </p>
                   </div>
                 </div>
-                <div className="md:w-[30%] w-[50%] h-max flex flex-row gap-2 items-center p-1">
-                  <div className="p-2 rounded-full border border-gray-50 bg-gray-800">
-                    <img src={item.bookImage} alt="" className="md:w-6 w-3" />
+                <div className="md:w-[30%] w-[50%] h-max flex flex-row gap-2 items-center p-2">
+                  <div className="text-[3vh]">
+                    <FaBook />
                   </div>
                   <div>
                     <h3 className="font-sans font-normal md:text-md text-xs text-gray-900">
@@ -85,7 +138,7 @@ const Review = () => {
                       className="md:w-5 w-3 md:h-5 h-3"
                     />
                   ))}
-                  {Array.from({ length: 5-item.rating }).map((_, index) => (
+                  {Array.from({ length: 5 - item.rating }).map((_, index) => (
                     <img
                       key={index}
                       src={emptyStar}
