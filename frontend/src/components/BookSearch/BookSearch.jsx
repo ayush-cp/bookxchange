@@ -69,6 +69,9 @@ const BookSearch = () => {
         }
       );
       setResponse(response.data);
+      // console.log("Response from backend:", response.data);
+      console.log("Books:", response.data.books);
+      console.log("Users:", response.data.users);
       alert("Data submitted successfully!");
     } catch (error) {
       console.error("Error while sending data to backend:", error);
@@ -165,35 +168,31 @@ const BookSearch = () => {
         </div>
 
         {/* displaying content from the backend */}
-        
+        {response && 
+  <div className="text-white text-center">
+    <h2 className="text-2xl font-bold mt-5">Books</h2>
+    <div className="flex flex-col gap-4">
+      {response.books.map((book, index) => (
+        <div key={index} className="bg-gray-200 p-2 rounded-lg">
+          <p>Book Title: {book.title}</p>
+          <p>Author: {book.author}</p>
+          <p>Genre: {book.genre}</p>
+          <p>ISBN: {book.isbn}</p>
+          <p>Country: {book.country}</p>
+          <p>State: {book.state}</p>
+          <p>Read Status: {book.readStatus}</p>
+          <h3 className="font-bold mt-3">User Details</h3>
+          <p>Name: {response.users.find(user => user._id === book.user)?.name || "N/A"}</p>
+          <p>Email: {response.users.find(user => user._id === book.user)?.email || "N/A"}</p>
+          <p>Country: {response.users.find(user => user._id === book.user)?.country || "N/A"}</p>
+          <p>State: {response.users.find(user => user._id === book.user)?.state || "N/A"}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+}
+
       </form>
-     
-      {response && 
-          <div className="relative z-10 sm:w-[70%] w-[90%] h-max bg-gray-50 bg-opacity-30 rounded-lg overflow-hidden  backdrop-blur-lg text-gray-800 text-center">
-            <h2 className="text-2xl font-bold mt-5 text-white" style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}>Books</h2>
-            <div className=" grid sm:grid-cols-2 grid-cols-1 gap-4  bg-gray-50 bg-opacity-30  backdrop-blur-lg p-4">
-              {response.map((book, index) => (
-                <div key={index} className="bg-gray-50 border border-gray-300 bg-opacity-95 p-4 flex flex-col gap-2 rounded-lg sm:w-[30vw] w-full h-max">
-                    <div className="w-full h-max flex flex-row justify-between items-center">
-                      <h2 className="sm:text-lg text-md font-bold">{book.title}</h2>
-                      <h3 className="sm:text-lg text-md font-bold">{book.isbn}</h3>
-                    </div>
-                    <div className="flex flex-col items-start gap-2 w-max h-max">
-                      <h4 className="sm:text-md text-sm font-normal">{book.author}</h4>
-                      <div className="w-max h-max flex flex-row gap-2 items-center">
-                        <div className="p-2 py-1 cursor-pointer bg-emerald-300 rounded-md">
-                          <h5 className="text-xs font-normal text-emerald-900">{book.genre}</h5>
-                        </div>
-                        <div className="p-2 py-1 cursor-pointer bg-emerald-300 rounded-md">
-                          <h5 className="text-xs font-normal text-emerald-900">{book.readStatus}</h5>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        }
     </section>
     <Footer />
     </>
