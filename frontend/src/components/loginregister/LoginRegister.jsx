@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Lock, User, Eye, EyeOff, LogIn, Globe, MapPin, RefreshCw } from "lucide-react";
+import {
+  Mail,
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  LogIn,
+  Globe,
+  MapPin,
+  RefreshCw,
+} from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Country, State } from "country-state-city";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const CombinedAuthForm = () => {
   const [formData, setFormData] = useState({
@@ -68,27 +80,58 @@ const CombinedAuthForm = () => {
     }));
   };
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
-    if (!formData.name || !formData.email || !formData.password || !country || !formData.state) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !country ||
+      !formData.state
+    ) {
       setLoading(false);
       toast.error("Please fill in all fields.");
       return;
     }
+    if (
+      formData.password.length < 6 ||
+      !/\d/.test(formData.password) ||
+      !/[^a-zA-Z0-9]/.test(formData.password) ||
+      !/[a-zA-Z]/.test(formData.password)
+    ) {
+      toast.error(
+        "Password should contain alphabets, numbers and special characters."
+      );
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/users/signup",
+        formData
+      );
+      toast.success("Signup successful!");
+      const { token, user } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      navigate("/bookSearch");
+    } catch (error) {
+      toast.error("Signup failed");
+      console.log(error.response?.data?.error || "Signup failed");
+    }
 
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    setGeneratedOTP(otp);
-    console.log(`Generated OTP: ${otp}`);
-    toast.success("OTP sent to your email!");
+    // const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    // setGeneratedOTP(otp);
+    // console.log(`Generated OTP: ${otp}`);
+    // toast.success("OTP sent to your email!");
 
-    setLoading(false);
-    setStage("verify-otp");
-    setIsResendDisabled(true);
+    // setLoading(false);
+    // setStage("verify-otp");
+    // setIsResendDisabled(true);
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
@@ -98,10 +141,20 @@ const CombinedAuthForm = () => {
       return;
     }
 
-    setTimeout(() => {
-      setLoading(false);
-      toast.success("Logged in successfully!");
-    }, 2000);
+   try {
+    const response = await axios.post("http://localhost:5000/api/users/login", formData);
+    const { token, user } = response.data;
+  
+      // Store token in local storage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+  
+      console.log("Login Success:", response.data);
+      navigate("/bookSearch");
+   } catch (err) {
+    console.error("Login Error:", err.response?.data || err.message);
+      setError("Invalid email or password");
+   }
   };
 
   const handleOTPVerification = (e) => {
@@ -320,7 +373,7 @@ const CombinedAuthForm = () => {
               className="w-full mt-2 text-emerald-600 hover:text-emerald-800 transition duration-300 text-center"
             >
               {isResendDisabled
-                ? 'Resend OTP in ${resendTimeout}s'
+                ? "Resend OTP in ${resendTimeout}s"
                 : "Resend OTP"}
             </button>
           </form>
