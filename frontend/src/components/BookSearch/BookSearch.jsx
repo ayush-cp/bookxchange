@@ -25,68 +25,7 @@ const BookSearch = () => {
 
   const token = localStorage.getItem("token");
 
-  const tempData = [
-    {
-      id: 1,
-      country: "India",
-      state: "Maharashtra",
-      title: "book1",
-      isbn: "12345678087",
-      readStatus: "read",
-      author: "ayush panwar",
-      genre: "fantasy"
-    },
-    {
-      id: 1,
-      country: "India",
-      state: "Maharashtra",
-      title: "book1",
-      isbn: "12345678087",
-      readStatus: "read",
-      author: "ayush panwar",
-      genre: "fantasy"
-    },
-    {
-      id: 1,
-      country: "India",
-      state: "Maharashtra",
-      title: "book1",
-      isbn: "12345678087",
-      readStatus: "read",
-      author: "ayush panwar",
-      genre: "fantasy"
-    },
-    {
-      id: 1,
-      country: "India",
-      state: "Maharashtra",
-      title: "book1",
-      isbn: "12345678087",
-      readStatus: "read",
-      author: "ayush panwar",
-      genre: "fantasy"
-    },
-    {
-      id: 1,
-      country: "India",
-      state: "Maharashtra",
-      title: "book1",
-      isbn: "12345678087",
-      readStatus: "read",
-      author: "ayush panwar",
-      genre: "fantasy"
-    },
-    {
-      id: 1,
-      country: "India",
-      state: "Maharashtra",
-      title: "book1",
-      isbn: "12345678087",
-      readStatus: "read",
-      author: "ayush panwar",
-      genre: "fantasy"
-    }
-  ]
+  
 
   useEffect(() => {
     if (country) {
@@ -219,7 +158,7 @@ const BookSearch = () => {
           </div>
           <button
             type="submit"
-            className="sm:w-[30%] w-1/2 md:w-[15%] bg-black text-white py-2 px-4 rounded-xl hover:bg-teal-600"
+            className="sm:w-[30%] w-1/2 md:w-[15%] bg-black transition-all ease-out duration-150 text-white py-2 px-4 rounded-xl hover:bg-teal-600"
           >
             Submit
           </button>
@@ -229,11 +168,11 @@ const BookSearch = () => {
         
       </form>
      
-      {tempData && 
+      {response && 
           <div className="relative z-10 sm:w-[70%] w-[90%] h-max bg-gray-50 bg-opacity-30 rounded-lg overflow-hidden  backdrop-blur-lg text-gray-800 text-center">
             <h2 className="text-2xl font-bold mt-5 text-white" style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}>Books</h2>
             <div className=" grid sm:grid-cols-2 grid-cols-1 gap-4  bg-gray-50 bg-opacity-30  backdrop-blur-lg p-4">
-              {tempData.map((book, index) => (
+              {response.map((book, index) => (
                 <div key={index} className="bg-gray-50 border border-gray-300 bg-opacity-95 p-4 flex flex-col gap-2 rounded-lg sm:w-[30vw] w-full h-max">
                     <div className="w-full h-max flex flex-row justify-between items-center">
                       <h2 className="sm:text-lg text-md font-bold">{book.title}</h2>
