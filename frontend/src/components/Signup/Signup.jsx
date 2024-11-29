@@ -60,9 +60,9 @@ const Signup = () => {
   
 
   return (
-    <div className="w-full h-screen bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
+    <div className="w-full min-h-screen h-max bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
       <ToastContainer/>
-      <div className="relative md:w-[70%] w-full md:h-[85%] h-max bg-emerald-300  p-4 rounded-2xl md:pl-8">
+      <div className="relative md:w-[70%] w-full md:min-h-[85%] md:h-max  h-max bg-emerald-300  p-4 rounded-2xl md:pl-8">
         <div className="absolute right-0 top-[10%] md:w-1/2 md:min-w-[300px] z-[0]">
           <img
             src={bookBack}

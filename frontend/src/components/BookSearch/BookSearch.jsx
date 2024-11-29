@@ -25,6 +25,8 @@ const BookSearch = () => {
 
   const token = localStorage.getItem("token");
 
+  
+
   useEffect(() => {
     if (country) {
       setStateData(State.getStatesOfCountry(country.isoCode));
@@ -82,17 +84,17 @@ const BookSearch = () => {
     <>
     <div className="fixed w-full z-20"><Navbar />
     </div>
-    <section className=" min-h-screen grid place-items-center bg-gradient-to-br from-slate-400 to-gray-600 pt-8">
-         <div className="absolute w-full h-full bg-[url('backSearch.jpg')] top-0 left-0 opacity-60 rounded-xl blur-sm bg-cover bg-center z-0">
+    <section className=" py-24 min-h-screen h-max flex flex-col justify-center items-center gap-8 bg-gradient-to-br from-slate-400 to-gray-600">
+         <div className="absolute w-full h-full bg-[url('backSearch.jpg')] top-0 left-0 opacity-60 rounded-xl blur-sm bg-fill bg-center z-0">
 
 </div>
       <form
         onSubmit={handleSubmit}
-        className="relative shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] h-[80%] bg-gray-50 bg-opacity-30  backdrop-blur-lg z-10"
+        className="relative shadow-lg md:p-4 rounded-xl w-[90%] md:w-[50%] min-h-[80%] h-max py-4 bg-gray-50 bg-opacity-30  backdrop-blur-lg z-10"
       >
         
         <h2
-          className="relative z-10 md:text-4xl text-3xl mt-5 mb-2 text-[#ffffff] font-bold text-center"
+          className="relative z-10 md:text-4xl sm:text-3xl text-xl mt-5 mb-2 text-[#ffffff] font-bold text-center"
           style={{ textShadow: "4px 4px 8px rgba(0, 0, 0, 0.5)" }}
         >
           Select Your Location and ISBN number of the Book
@@ -151,7 +153,7 @@ const BookSearch = () => {
               Enter ISBN Number:
             </label>
             <input
-              className="p-2 rounded-lg"
+              className="p-2 rounded-lg outline-none"
               type="text"
               onChange={handleIsbnChange}
               value={isbn}
@@ -159,7 +161,7 @@ const BookSearch = () => {
           </div>
           <button
             type="submit"
-            className="w-[50%] md:w-[15%] bg-black text-white py-2 px-4 rounded-xl hover:bg-teal-600"
+            className="sm:w-[30%] w-1/2 md:w-[15%] bg-black transition-all ease-out duration-150 text-white py-2 px-4 rounded-xl hover:bg-teal-600"
           >
             Submit
           </button>
