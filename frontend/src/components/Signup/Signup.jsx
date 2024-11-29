@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Mail, Lock, User, Globe, LogIn } from "lucide-react";
+import { Mail, Lock, User, Globe, LogIn, MapPin } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
 import { Country, State } from "country-state-city";
 import Selector from "../BookSearch/Selector";
@@ -229,23 +229,31 @@ const BookExchangeLogin = () => {
                 />
               </div>
 
+              {/* Country Dropdown */}
               <div className="relative">
                 <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500" />
                 <Selector
                   data={countryData}
                   selected={country}
                   setSelected={setCountry}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-lg"
                   required
                 />
-                {country && (
+              </div>
+
+              {/* State Dropdown */}
+              {country && (
+                <div className="relative mt-4">
+                  <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-teal-500" />
                   <Selector
                     data={stateData}
                     selected={state}
                     setSelected={setState}
+                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-lg"
                     required
                   />
-                )}
-              </div>
+                </div>
+              )}
 
               <button
                 type="submit"
@@ -256,7 +264,7 @@ const BookExchangeLogin = () => {
             </form>
           )}
 
-          {/* OTP Verification Form */}
+          {/* OTP Verification */}
           {stage === "verify-otp" && (
             <form onSubmit={handleOTPVerification} className="space-y-5">
               <div className="relative">
@@ -266,11 +274,10 @@ const BookExchangeLogin = () => {
                   placeholder="Enter OTP"
                   value={formData.otp}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-lg"
+                  className="w-full pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-lg"
                   required
                 />
               </div>
-
               <button
                 type="submit"
                 className="w-full bg-emerald-600 text-white py-3 rounded-lg hover:bg-emerald-700 transition duration-300 flex items-center justify-center shadow-lg"
