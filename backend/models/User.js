@@ -1,3 +1,4 @@
+const { verify } = require("jsonwebtoken");
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -9,6 +10,7 @@ const userSchema = new mongoose.Schema({
   bio : {type : String,
      default : ""
   },
+  verified: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("User", userSchema);
