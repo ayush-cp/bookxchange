@@ -16,7 +16,7 @@ import { Country, State } from "country-state-city";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const CombinedAuthForm = () => {
+const LoginRegister= () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,11 +36,18 @@ const CombinedAuthForm = () => {
   const countryData = Country.getAllCountries();
   const [stateData, setStateData] = useState([]);
   const [country, setCountry] = useState(null);
-
+  const [error, setError] = useState("");
+  const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
 
-  setUser(JSON.parse(localStorage.getItem("user")));
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
   useEffect(() => {
     if (country) {
       setStateData(State.getStatesOfCountry(country.isoCode));
@@ -414,4 +421,4 @@ const CombinedAuthForm = () => {
   );
 };
 
-export default CombinedAuthForm;
+export default LoginRegister;

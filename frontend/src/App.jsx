@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
 import BookSearch from "./components/BookSearch/BookSearch";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
-import BookExchangeLogin from "./components/loginregister/LoginRegister";
+import LoginRegister from "./components/loginregister/LoginRegister";
+
+
 
 function App() {
   return (
@@ -19,7 +21,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
 
           {/* Define route for BookExchangeLogin */}
-          <Route path="/bookexchangelogin" element={<BookExchangeLogin />} />
+          <Route path="/loginregister" element={<LoginRegister/>} />
         </Routes>
       </BrowserRouter>
     </div>
