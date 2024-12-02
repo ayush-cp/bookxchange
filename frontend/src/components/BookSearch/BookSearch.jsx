@@ -168,29 +168,44 @@ const BookSearch = () => {
         </div>
 
         {/* displaying content from the backend */}
-        {response && 
-  <div className="text-white text-center">
+        {response && (
+  <div className="text-white text-center w-full">
     <h2 className="text-2xl font-bold mt-5">Books</h2>
-    <div className="flex flex-col gap-4">
-      {response.books.map((book, index) => (
-        <div key={index} className="bg-gray-200 p-2 rounded-lg">
-          <p>Book Title: {book.title}</p>
-          <p>Author: {book.author}</p>
-          <p>Genre: {book.genre}</p>
-          <p>ISBN: {book.isbn}</p>
-          <p>Country: {book.country}</p>
-          <p>State: {book.state}</p>
-          <p>Read Status: {book.readStatus}</p>
-          <h3 className="font-bold mt-3">User Details</h3>
-          <p>Name: {response.users.find(user => user._id === book.user)?.name || "N/A"}</p>
-          <p>Email: {response.users.find(user => user._id === book.user)?.email || "N/A"}</p>
-          <p>Country: {response.users.find(user => user._id === book.user)?.country || "N/A"}</p>
-          <p>State: {response.users.find(user => user._id === book.user)?.state || "N/A"}</p>
-        </div>
-      ))}
+    <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+      {response.books.map((book, index) => {
+        const user = response.users.find(user => user._id === book.user);
+        return (
+          <div
+            key={index}
+            className="bg-gray-800 md:w-[200%] p-6 rounded-lg shadow-lg text-left flex flex-col md:flex-row"
+          >
+            {/* Book Details */}
+            <div className="w-full md:w-full px-4 py-2 bg-gray-700 rounded-lg">
+              <h3 className="text-lg font-semibold mb-2 text-yellow-400">Book Details</h3>
+              <p className="text-sm">📚 <strong>Title:</strong> {book.title}</p>
+              <p className="text-sm">✍️ <strong>Author:</strong> {book.author}</p>
+              <p className="text-sm">📖 <strong>Genre:</strong> {book.genre}</p>
+              <p className="text-sm">📘 <strong>ISBN:</strong> {book.isbn}</p>
+              <p className="text-sm">🌍 <strong>Country:</strong> {book.country}</p>
+              <p className="text-sm">📍 <strong>State:</strong> {book.state}</p>
+              <p className="text-sm">✔️ <strong>Read Status:</strong> {book.readStatus}</p>
+            </div>
+
+            {/* User Details */}
+            <div className="w-full md:w-full px-4 py-2 bg-gray-700 rounded-lg mt-4 md:mt-0 md:ml-4">
+              <h3 className="text-lg font-semibold mb-2 text-green-400">User Details</h3>
+              <p className="text-sm">👤 <strong>Name:</strong> {user?.name || "N/A"}</p>
+              <p className="text-sm">✉️ <strong>Email:</strong> {user?.email || "N/A"}</p>
+              <p className="text-sm">🌍 <strong>Country:</strong> {user?.country || "N/A"}</p>
+              <p className="text-sm">📍 <strong>State:</strong> {user?.state || "N/A"}</p>
+            </div>
+          </div>
+        );
+      })}
     </div>
   </div>
-}
+)}
+
 
       </form>
     </section>
