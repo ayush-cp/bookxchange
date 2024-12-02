@@ -47,7 +47,7 @@ const LoginRegister= () => {
       setUser(JSON.parse(storedUser));
     }
   }, []);
-  
+
   useEffect(() => {
     if (country) {
       setStateData(State.getStatesOfCountry(country.isoCode));
@@ -138,7 +138,7 @@ const LoginRegister= () => {
       setStage("verify-otp");
       setIsResendDisabled(true);
        
-      navigate("/bookSearch");
+      // navigate("/bookSearch");
     } catch (error) {
       toast.error("Signup failed");
       console.log(error.response?.data?.error || "Signup failed");
@@ -179,7 +179,8 @@ const LoginRegister= () => {
 
     if (formData.otp == generatedOTP) {
         try {
-            const email = localStorage.getItem("email"); // Retrieve email
+            const email = user.email;
+            console.log("Email:", email);
             if (!email) {
                 toast.error("Email is missing in localStorage.");
                 return;
@@ -191,6 +192,7 @@ const LoginRegister= () => {
             );
 
             console.log("Email Verified:", response.data);
+            navigate("/bookSearch");
             toast.success("Registration successful!");
         } catch (error) {
             console.error("Error verifying email:", error.response?.data || error);
