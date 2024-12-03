@@ -43,7 +43,7 @@ const Footer = () => {
             promotions, and more.
           </p>
           <button className="md:p-2 p-1 md:px-6 px-4 bg-blue-700 rounded-lg font-sans font-semibold md:text-xl sm:text-lg text-md text-white">
-            <Link to="/signup">Register</Link>
+            <Link to="/bookexchangelogin">Register</Link>
           </button>
         </div>
         <div className="md:w-[20%] w-full h-max flex flex-row items-center justify-between md:mx-4 mx-8">

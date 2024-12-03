@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home/Home";
-import Signup from "./components/Signup/Signup";
 import BookSearch from "./components/BookSearch/BookSearch";
-import Login from "./components/Login/Login";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import LoginRegister from "./components/loginregister/LoginRegister";
+
+
 
 function App() {
   return (
@@ -14,15 +15,13 @@ function App() {
           {/* Define route for Home */}
           <Route path="/" element={<Home />} />
 
-          {/* Define route for Signup */}
-          <Route path="/signup" element={<Signup />} />
-
-          {/* Define route for BookSearch */}
-          <Route path="/login" element={<Login />} />
           <Route path="/booksearch" element={<BookSearch />} />
 
           {/* Define route for Profile Page */}
           <Route path="/profile" element={<ProfilePage />} />
+
+          {/* Define route for BookExchangeLogin */}
+          <Route path="/loginregister" element={<LoginRegister/>} />
         </Routes>
       </BrowserRouter>
     </div>

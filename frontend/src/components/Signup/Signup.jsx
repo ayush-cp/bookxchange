@@ -28,11 +28,19 @@ const Signup = () => {
     }
   }, [country]);
 
+  const handleName = (e)=>{
+    if (/\d|[^a-zA-Z0-9]/.test(e.target.value)) {
+      toast.error('Name should not contain any number or special character.');
+      return;
+    }
+    setName(e.target.value)
+  }
+
   const handleSignup = async (e) => {
     e.preventDefault();
     console.log("Signup data:", name, email, password, country, state);
     if (!country || (stateData.length > 0 && !state)) {
-      alert("Please select a country and state.");
+      toast.error("Please select a country and state.");
       return;
     }
     try {
@@ -40,6 +48,10 @@ const Signup = () => {
         toast.error('Please fill all the fields');
         return;
       }
+     if (password.length<6 || !(/\d/).test(password) || !(/[^a-zA-Z0-9]/).test(password) || !(/[a-zA-Z]/).test(password)) {
+      toast.error('Password should contain alphabets, numbers and special characters.');
+        return;
+     }
       const response = await axios.post("http://localhost:5000/api/users/signup", {
         name,
         email,
@@ -48,6 +60,9 @@ const Signup = () => {
         state: state?.name || null,
       });
       toast.success("Signup successful!");
+      const { token, user } = response.data;
+      localStorage .setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
       navigate("/bookSearch");
     } catch (error) {
       toast.error("Signup failed");
@@ -57,9 +72,9 @@ const Signup = () => {
   
 
   return (
-    <div className="w-full h-screen bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
+    <div className="w-full min-h-screen h-max bg-emerald-100 bg-opacity-80 backdrop-blur-md flex justify-center items-center p-4">
       <ToastContainer/>
-      <div className="relative md:w-[70%] w-full md:h-[85%] h-max bg-emerald-300  p-4 rounded-2xl md:pl-8">
+      <div className="relative md:w-[70%] w-full md:min-h-[85%] md:h-max  h-max bg-emerald-300  p-4 rounded-2xl md:pl-8">
         <div className="absolute right-0 top-[10%] md:w-1/2 md:min-w-[300px] z-[0]">
           <img
             src={bookBack}
@@ -81,7 +96,7 @@ const Signup = () => {
                 type="text"
                 id="name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleName}
                 placeholder="Enter your name"
                 className="p-2 px-4 font-sans font-normal text-md text-gray-500 rounded-lg outline-none bg-white"
                 required
@@ -129,6 +144,7 @@ const Signup = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 />
               </div>
+              <p className="text-xs text-red-600" >Password should be atleast 6 characters with Numbers and Special Characters.</p>
             </div>
 
             <div className="w-full h-max flex flex-col gap-2">
